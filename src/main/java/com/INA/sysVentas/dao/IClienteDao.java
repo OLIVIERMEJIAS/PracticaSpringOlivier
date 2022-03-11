@@ -18,6 +18,6 @@ public interface IClienteDao extends JpaRepository<Cliente, Long>{
     //Método personalizado Spring DATA
     public Iterable<Cliente> findByNombreContainsOrApellidoContains(String nombre, String apellido);
     
-    @Query(value = "Select * from Cliente Where limite_credito >= ?1")
+    @Query(value = "Select c from Cliente c Where limite_credito >= ?1")
     public Iterable<Cliente> buscarPorLimites(double limite);
 }

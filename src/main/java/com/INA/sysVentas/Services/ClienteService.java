@@ -47,7 +47,7 @@ public class ClienteService implements IClienteService{
 
     @Override
     public List<Cliente> listar(double limite) {
-        
+        return (List<Cliente>) clienteDao.buscarPorLimites(limite);
     }
 
     @Override
