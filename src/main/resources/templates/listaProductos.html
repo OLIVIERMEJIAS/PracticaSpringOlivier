@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html
+    xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Productos</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+         <h1>Lista de Productos</h1>
+        <div th:if="${productos != null and !productos.empty}">
+            <table>
+                <thead>
+
+                    <tr>
+                        <th>Id</th>
+                        <th>Descripcion</th>
+                         <th>Precio</th>
+                          <th>Existencia</th>
+                
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="pro:${productos}">
+                        <td th:text ="${pro.idProducto}"></td>
+                        <td th:text ="${pro.descripcion}"></td>
+                        <td th:text ="${pro.precio}"></td>
+                         <td th:text ="${pro.existencias}"></td>
+                    </tr>
+                </tbody>
+             </table>
+      </div>
+        <div th:if="${clientes == null or clientes.empty}">
+            <h3>No hay datos de Productos en la base de datos</h3>
+        </div>
+    </body>
+</html>

@@ -7,7 +7,7 @@ and open the template in the editor.
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>TODO supply a title</title>
+        <title>Clientes</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
@@ -38,7 +38,7 @@ and open the template in the editor.
                 </tbody>
              </table>
       </div>
-        <div th:if="${clientes == null and clientes.empty}">
+        <div th:if="${clientes == null or clientes.empty}">
             <h3>No hay datos de clientes en la base de datos</h3>
         </div>
     </body>
