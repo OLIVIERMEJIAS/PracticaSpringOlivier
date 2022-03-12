@@ -10,11 +10,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <title>Productos</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+
     </head>
-    <body>
+    <body class= "container">
          <h1>Lista de Productos</h1>
         <div th:if="${productos != null and !productos.empty}">
-            <table>
+            <table class="table table-primary table-hover">
                 <thead>
 
                     <tr>
