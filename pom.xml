@@ -15,7 +15,8 @@
 	<description>Ejemplo guiado de Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
-	</properties>
+             <start-class>com.INA.sysVentas.SysVentasApplication</start-class>
+        </properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

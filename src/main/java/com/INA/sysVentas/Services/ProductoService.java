@@ -10,12 +10,14 @@ import com.INA.sysVentas.domain.Cliente;
 import com.INA.sysVentas.domain.Producto;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author HP
  */
+@Component
 public class ProductoService implements IProductoService{
     @Autowired
     private IProductoDao productoDao;

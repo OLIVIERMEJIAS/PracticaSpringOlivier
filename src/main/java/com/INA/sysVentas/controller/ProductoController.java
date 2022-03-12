@@ -20,10 +20,10 @@ public class ProductoController {
     @Autowired
     private IProductoService servicioProducto;
 
-    @GetMapping("/prodcutos")
+    @GetMapping("/productos")
     public String listaClientes(Model model){
         List<Producto> lista = servicioProducto.listar();
-        model.addAttribute("procutos",lista);
+        model.addAttribute("productos",lista);
         return "listaProductos";
     }
 }
