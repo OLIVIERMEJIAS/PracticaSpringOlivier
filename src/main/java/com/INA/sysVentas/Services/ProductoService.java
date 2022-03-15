@@ -30,10 +30,10 @@ public class ProductoService implements IProductoService{
     }
 
     
-    @Override
+     @Override
     @Transactional
-    public void eliminar(Producto producto) {
-        productoDao.delete(producto);
+    public Integer eliminar(Producto producto) {
+        return productoDao.eliminar_producto(producto.getIdProducto());
     }
    
     

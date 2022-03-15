@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface IProductoService {
     public void guardar(Producto producto);
-    public void eliminar(Producto producto);
+    public Integer eliminar(Producto producto);
     public List<Producto> listar();
     public List<Producto> listar(String descripcion);
     public List<Producto> listar(int existencias);

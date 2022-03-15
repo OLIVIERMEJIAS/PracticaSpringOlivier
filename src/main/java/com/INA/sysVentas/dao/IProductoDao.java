@@ -7,6 +7,9 @@ package com.INA.sysVentas.dao;
 import com.INA.sysVentas.domain.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -20,4 +23,8 @@ public interface IProductoDao
     
     @Query(value = "Select p from Producto p Where existencia = ?1")
     public Iterable<Producto> buscarPorExistencias(int existencias);
+    
+    @Transactional
+    @Procedure(name="ELIMINAR_PRODUCTO",outputParameterName = "res")
+    public Integer eliminar_producto(@Param("@ID") Long id);
 }

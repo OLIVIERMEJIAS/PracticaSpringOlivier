@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+    <head th:replace="fragments/plantilla1 :: head">
+        <title>TODO supply a title</title>
+       
+    </head>
+    <body>
+        
+        <div class="container">
+            <header th:replace="fragments/plantilla1 :: header">
+
+            </header>
+            
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <h1 class="card-header">Datos del Cliente</h1>
+                        <form th:action="@{/guardarProducto}" method="post" th:object="${producto}">
+                        <input type="hidden" name="idProducto" 
+                                   th:field="*{idProducto}"/>
+                        <div class="form-group">
+                            <label for="descripcion" class="form-label">
+                                Descripción:</label>
+                            <input type="text" name="descripcion" 
+                                   th:field="*{descripcion}"/>
+                            <span class="text-danger font-italic"
+                                  th:if="${#fields.hasErrors('descripcion')}"
+                                  th:errors="*{descripcion}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="precio" class="form-label">
+                                Precio:</label>
+                            <input type="number" name="precio" 
+                                   th:field="*{precio}"/>
+                            <span class="text-danger font-italic"
+                                  th:if="${#fields.hasErrors('precio')}"
+                                  th:errors="*{precio}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="existencias" class="form-label">
+                                Existencias:</label>
+                            <input type="number" name="existencias" 
+                                   th:field="*{existencias}"/>
+                            <span class="text-danger font-italic"
+                                  th:if="${#fields.hasErrors('existencias')}"
+                                  th:errors="*{existencias}"></span>
+                        </div>
+                        
+                        <div class="mt-2">
+                            <input type="submit" name="btnGuardar" 
+                                   class="btn btn-primary"/>
+                            <a th:href="@{/productos}" class="btn btn-warning">Regresar</a>
+                        </div>
+                    </form> 
+                </div>
+
+            </div>
+        </div>
+       
+    </body>
+</html>
