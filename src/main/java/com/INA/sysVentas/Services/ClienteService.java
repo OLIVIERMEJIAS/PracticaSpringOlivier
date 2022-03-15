@@ -10,14 +10,14 @@ import com.INA.sysVentas.domain.Cliente;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Progra
  */
-@Component
+@Service
 public class ClienteService implements IClienteService{
     @Autowired
     private IClienteDao clienteDao;
@@ -30,8 +30,9 @@ public class ClienteService implements IClienteService{
 
     
     @Override
-    public void eliminar(Cliente Cliente) {
-        clienteDao.delete(Cliente);
+    @Transactional
+    public Integer eliminar(Cliente cliente) {
+        return clienteDao.eliminar_cliente(cliente.getIdCliente());
     }
    
     
@@ -43,16 +44,19 @@ public class ClienteService implements IClienteService{
 
     
     @Override
+    @Transactional(readOnly = true)
     public List<Cliente> listar(String nombre,String apellido) {
         return (List<Cliente>) clienteDao.findByNombreContainsOrApellidoContains(nombre, apellido);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Cliente> listar(double limite) {
         return (List<Cliente>) clienteDao.buscarPorLimites(limite);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Cliente obtenerCliente(Long idCliente) {
         return clienteDao.findById(idCliente).orElse(null);
     }

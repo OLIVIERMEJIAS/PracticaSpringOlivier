@@ -11,13 +11,14 @@ import com.INA.sysVentas.domain.Producto;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author HP
  */
-@Component
+@Service
 public class ProductoService implements IProductoService{
     @Autowired
     private IProductoDao productoDao;
@@ -30,6 +31,7 @@ public class ProductoService implements IProductoService{
 
     
     @Override
+    @Transactional
     public void eliminar(Producto producto) {
         productoDao.delete(producto);
     }
@@ -43,16 +45,19 @@ public class ProductoService implements IProductoService{
 
     
     @Override
+    @Transactional(readOnly = true)
     public List<Producto> listar(String descripcion) {
         return (List<Producto>) productoDao.findByDescripcionContains(descripcion);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Producto> listar(int existencias) {
         return (List<Producto>) productoDao.buscarPorExistencias(existencias);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Producto obtenerProducto(Long idProducto) {
         return productoDao.findById(idProducto).orElse(null);
     }

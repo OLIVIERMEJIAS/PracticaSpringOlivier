@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+    <head th:replace="fragments/plantilla1 :: head">
+        <title>TODO supply a title</title>
+       
+    </head>
+    <body>
+        
+        <div class="container">
+            <header th:replace="fragments/plantilla1 :: header">
+
+            </header>
+            
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <h1 class="card-header">Datos del Cliente</h1>
+                        <form th:action="@{/guardarCliente}" method="post" th:object="${cliente}">
+                        <input type="hidden" name="idCliente" 
+                                   th:field="*{idCliente}"/>
+                        <div class="form-group">
+                            <label for="nombre" class="form-label">
+                                Nombre</label>
+                            <input type="text" name="nombre" 
+                                   th:field="*{nombre}"/>
+                            <span class="text-danger font-italic"
+                                  th:if="${#fields.hasErrors('nombre')}"
+                                  th:errors="*{nombre}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido" class="form-label">
+                                Apellido</label>
+                            <input type="text" name="apellido" 
+                                   th:field="*{apellido}"/>
+                            <span class="text-danger font-italic"
+                                  th:if="${#fields.hasErrors('apellido')}"
+                                  th:errors="*{apellido}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">
+                                Correo</label>
+                            <input type="email" name="email" 
+                                   th:field="*{email}"/>
+                            <span class="text-danger font-italic"
+                                  th:if="${#fields.hasErrors('email')}"
+                                  th:errors="*{email}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono" class="form-label">
+                                Teléfono</label>
+                            <input type="type" name="telefono" 
+                                   th:field="*{telefono}"/>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="limiteCredito" class="form-label">
+                                Límite de Crédito</label>
+                            <input type="number" step="0.01" name="limiteCredito" 
+                                   th:field="*{limiteCredito}"/>
+                            <span class="text-danger font-italic"
+                                  th:if="${#fields.hasErrors('limiteCredito')}"
+                                  th:errors="*{limiteCredito}"></span>
+                        </div>
+                        <div class="mt-2">
+                            <input type="submit" name="btnGuardar" 
+                                   class="btn btn-primary"/>
+                            <a th:href="@{/clientes}" class="btn btn-warning">Regresar</a>
+                        </div>
+                    </form> 
+                </div>
+
+            </div>
+        </div>
+       
+    </body>
+</html>

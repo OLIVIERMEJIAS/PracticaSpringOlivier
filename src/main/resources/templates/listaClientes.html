@@ -6,42 +6,72 @@ and open the template in the editor.
 -->
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns="http://www.w3.org/1999/xhtml">
-    <head>
+    <head th:replace="fragments/plantilla1 :: head">
         <title>Clientes</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
-
+       
     </head>
-    <body class= "container">
-        <h1>Lista de clientes</h1>
-        <div  th:if="${clientes != null and !clientes.empty}">
-            <table class="table table-primary table-hover">
-                <thead>
+    <body>
+        <div class= "container">
+            
+            <header th:replace="fragments/plantilla1 :: header">">
 
-                    <tr>
-                        <th>Id</th>
-                        <th>Nombre</th>
-                         <th>Apellido</th>
-                          <th>Email</th>
-                          <th>Teléfono</th>
-                           <th>Límite de Crédito</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="cli:${clientes}">
-                        <td th:text ="${cli.idCliente}"></td>
-                        <td th:text ="${cli.nombre}"></td>
-                        <td th:text ="${cli.apellido}"></td>
-                         <td th:text ="${cli.email}"></td>
-                        <td th:text ="${cli.telefono}"></td>
-                        <td th:text ="${cli.limiteCredito}"></td>
-                    </tr>
-                </tbody>
-             </table>
-      </div>
-        <div th:if="${clientes == null or clientes.empty}">
-            <h3>No hay datos de clientes en la base de datos</h3>
+            </header>
+            <h1>Lista de clientes</h1>
+            <div class="row mt-2">
+                <div class="col-9">
+                    <form th:action="@{/filtrarClientes}" method="post">
+                        <div class="input-group">
+                            <input type="type" name="txtTexto"
+                                   placeholder="Escriba nombre o apellido"
+                                   class="form-control"/>
+                            <input type="submit" name="btnFiltrar" 
+                                   value="Buscar" class="btn btn-primary"/>
+                        </div>
+                    </form> 
+                </div>
+                <div class="col-3">
+                    <a th:href="@{/nuevoCliente}" class="btn btn-primary mx-auto"><i class="fas fa-user-plus">Nuevo Cliente</i></a>
+                </div>
+                
+            </div>
+            <div  th:if="${clientes != null and !clientes.empty}">
+                <table class="table table-primary table-hover">
+                    <thead>
+
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                             <th>Apellido</th>
+                              <th>Email</th>
+                              <th>Teléfono</th>
+                               <th>Límite de Crédito</th>
+                               <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="cli:${clientes}">
+                            <td th:text ="${cli.idCliente}"></td>
+                            <td th:text ="${cli.nombre}"></td>
+                            <td th:text ="${cli.apellido}"></td>
+                             <td th:text ="${cli.email}"></td>
+                            <td th:text ="${cli.telefono}"></td>
+                            <td th:text ="${cli.limiteCredito}"></td>
+                            <td>
+                                <a th:href="@{/editarCliente/} + ${cli.idCliente}">
+                                    <i class="fas fa-user-edit"></i></a>
+                                <a th:href="@{/eliminarCliente(idCliente=${cli.idCliente})}"><i class="fas fa-user-times"></i></a>
+                            </td>
+                         
+                        </tr>
+                    </tbody>
+                 </table>
+          </div>
+            <div th:if="${clientes == null or clientes.empty}">
+                <h3>No hay datos de clientes en la base de datos</h3>
+            </div>
         </div>
+
     </body>
 </html>
