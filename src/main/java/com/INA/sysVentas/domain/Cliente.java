@@ -2,6 +2,7 @@
 package com.INA.sysVentas.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import lombok.Data;
@@ -37,4 +38,7 @@ public class Cliente implements Serializable{
     @Column(name="limite_credito")
     @NotNull(message="El límite de Crédito es Obligatorio")
     private double limiteCredito;
+    
+    @OneToMany(mappedBy="cliente")
+    private List<Venta> ventas;
 }

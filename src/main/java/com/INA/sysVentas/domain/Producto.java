@@ -4,11 +4,15 @@
  */
 package com.INA.sysVentas.domain;
 
+import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
@@ -24,8 +28,8 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name="Producto")
-public class Producto {
-    private static final long serialVersionUID=2L;
+public class Producto implements Serializable{
+    private static final long serialVersionUID=1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,4 +51,7 @@ public class Producto {
     @Column(name="existencia")
     @NotNull(message="El número de existencias es Obligatorio")
     private double existencias;
+    
+    @OneToMany(mappedBy="producto")
+    private List<DetalleVenta> detalles;
 }
