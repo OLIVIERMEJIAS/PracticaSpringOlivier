@@ -11,6 +11,7 @@ import java.util.HashMap;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -29,4 +30,8 @@ public interface IVentaDao extends JpaRepository<Venta,Long>{
             @Param("PRECIO_VENTA") double precioVenta,
             @Param("ID_VENTA") Long idVenta,
             @Param("retorno") int retorno);
+    
+     
+    @Procedure(name="CANCELAR_FACTURA",outputParameterName = "res")
+    public Integer cancelar_factura(@Param("@ID") Long id);
 }
