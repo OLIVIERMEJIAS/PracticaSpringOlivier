@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+    <head th:replace="fragments/plantilla1 :: head">
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <div class="container">
+            <header th:replace="fragments/plantilla1 :: header">
+                
+            </header>
+            <section>
+                <div class="container">
+                    <div class="card">
+                        <div class="card-header flex justify-content-around">
+                            <h3>Facturación</h3>
+                            <h4 th:text="${#dates.format(factura.fecha,'dd/MM/yyyy')}"></h4>
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{/facturar}" method="post" th:object="@{factura}">
+                                <input type="hidden" name="idVenta" th:field="*{idVenta}"/>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <label class="form-label" for="tipo">Tipo de Venta</label>
+                                        <select name="tipo" th:field="*{tipo}">
+                                            <option th:value="Crédito">Crédito</option>
+                                            <option th:value="Contado" th:selected="true">
+                                                Contado
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-8">
+                                        <label class="form-label" for="nombreCliente">Cliente</label>
+                                        
+                                        <input type="hidden" name="idCliente" 
+                                               th:field="*{idCliente}"/>
+                                        <input type="text" name="nombreCliente"
+                                               th:field="*{nombreCliente}"
+                                               readonly="true" class="form-control" required="true"/>
+
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="input-group">
+                                            <input type="hidden" name="idProducto" th:field="*{idProducto}"/>
+                                            <input id="NombreProducto" type="text" name="descripcion"
+                                                   th:field="*{descripcion}" class="form-control" required="true"/>
+                                            <a id="btnBuscarP" class="btn btn-success" data-toggle="modal"
+                                               data-target="#modalProductos"><i class="fas fa-binoculars"></i></a>
+                                               <label for="cantidad" class="form-label">Cantidad</label>
+                                               <input type="number" name="cantidad" id="cantidad"
+                                                   class="form-control"
+                                                   th:field=*{cantidad}" value="1" required="true"/>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <input type="submit" value="Facturar Producto" name="btnGuardar"
+                                        class="btn btn-primary">
+                                </div>
+                                
+                                <div class="row">
+                                    <span class="font-italic text-danger"
+                                          th:if="${#fields.hasErrors('nombreCliente')}"
+                                          th:errors="*{nombreCliente}">Error</span>
+                                    
+                                    <span class="font-italic text-danger"
+                                          th:if="${#fields.hasErrors('descripcion')}"
+                                          th:errors="*{descripcion}">Error</span>
+                                    
+                                    <span class="font-italic text-danger"
+                                          th:if="${#fields.hasErrors('cantidad')}"
+                                          th:errors="*{cantidad}">Error</span>
+                                </div>
+                            </form>
+                            
+                            <h4>Detalles de Factura</h4>
+                            <div class="row">
+                                <div th:if="${factura.detalles != null and !factura.detalles.empty}">
+                                    <table class="table-striped">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>Código</th>
+                                                <th>Descripción</th>
+                                                <th>Cantidad</th>
+                                                <th>Precio</th>
+                                                <th>Subtotal</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="item:${factura.detalles}">
+                                                <td th:text="${item.producto.idProducto}"></td>
+                                                <td th:text="${item.producto.descripcion}"></td>
+                                                <td th:text="${item.cantidad}"></td>
+                                                <td th:text="${item.precio}"></td>
+                                                <td th:text="${item.cantidad * item.precio}"></td>
+                                                <td>
+                                                    <a th:href="@{/eliminarDetalle(idDetalle=${item.idDetalle})}"><i class="fas fa-window-close"></i> Eliminar</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div th:if="${total != null !total.empty}">
+                                        <h4>Total: <span th:text="${new java.text.DecimalFormat('%,%%0.00').
+                                                         format(total)}"></span></h4>
+                                        <a th:href="@{/pagar/} + ${factura.idVenta}" 
+                                           class="btn btn-primary">Pagar</a>
+                                    </div>
+                                </div>
+                                
+                                <div "${factura.detalles == null or factura.detalles.empty}">
+                                    <p class="alert alert-primary" role="alert">No hay detalles en esta factura</p>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
+            
+            <section class="">
+                <!<!-- modal -->
+            </section>
+        </div>
+    </body>
+</html>
