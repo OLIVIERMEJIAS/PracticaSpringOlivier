@@ -24,7 +24,7 @@ and open the template in the editor.
                             <h4 th:text="${#dates.format(factura.fecha,'dd/MM/yyyy')}"></h4>
                         </div>
                         <div class="card-body">
-                            <form th:action="@{/facturar}" method="post" th:object="@{factura}">
+                            <form th:action="@{/guardarFactura}" method="post" th:object="${factura}">
                                 <input type="hidden" name="idVenta" th:field="*{idVenta}"/>
                                 <div class="row">
                                     <div class="col-4">
@@ -59,7 +59,7 @@ and open the template in the editor.
                                                <label for="cantidad" class="form-label">Cantidad</label>
                                                <input type="number" name="cantidad" id="cantidad"
                                                    class="form-control"
-                                                   th:field=*{cantidad}" value="1" required="true"/>
+                                                   th:field="*{cantidad}" value="1" required="true"/>
                                         
                                         </div>
                                     </div>
@@ -132,9 +132,55 @@ and open the template in the editor.
                 </div>
             </section>
             
-            <section class="">
-                <!<!-- modal -->
+            <section>
+                <div class="modal fade"
+                     id="modalProductos" role="dialog"
+                     tabindex="-1" arial-labelledby="productosModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="productoModalLabel">Listado de Productos</h5>
+                            <button class="close" type="button" data-dismiss="modal"
+                                    aria-label="close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <div th:if="${productos != null and !productos.empty}">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Código</th>
+                                            <th>Descripción</th>
+                                            <th></th>
+                                 
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="item:${productos}">
+                                            <td th:text="${item.idProducto}"></td>
+                                            <td th:text="${item.descripcion}"></td>
+                                            <td>
+                                                <a href="#" th:onclick="seleccionar([[${item.idProducto}]],
+                                                   [[${item.descripcion}]])">Seleccionar</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            
+                            <div th:if="${productos == null or productos.empty}">
+                                <h3>No hay productos listados</h3>
+                            </div>
+                        <div>
+                            <div class="modal-footer">
+                                <button id="btnCerrar" type="button"
+                                        class="btn btn-primary"
+                                        data-dismiss="modal">Cerrar</button>
+                            </div>
+                    </div>
+                </div> <!<!-- fin modal -->
             </section>
         </div>
+                    
     </body>
 </html>

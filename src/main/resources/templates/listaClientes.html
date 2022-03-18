@@ -59,6 +59,8 @@ and open the template in the editor.
                             <td th:text ="${cli.telefono}"></td>
                             <td th:text ="${cli.limiteCredito}"></td>
                             <td>
+                                <a th:href="@{/facturar/} + ${cli.idCliente}">
+                                   <i class="fas fa-shopping-cart"></i>Facturar</a> |
                                 <a th:href="@{/editarCliente/} + ${cli.idCliente}">
                                     <i class="fas fa-user-edit"></i>Modificar</a> |
                                 <a th:href="@{/eliminarCliente(idCliente=${cli.idCliente})}"><i class="fas fa-user-times"></i>Eliminar</a>
